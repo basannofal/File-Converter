@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #navcontainer {
+            position: relative;
+            width: 100%;
+            background-color: #56BC1F;
+            box-shadow: -2px -2px 5px white, 2px -2px 5px white;
+            padding: 10px 0;
+        }
+
+        #navcontainer>nav {
+            width: 100%;
+            display: flex;
+            max-height: 60px;
+        }
+
+        #logo {
+            line-height: 60px;
+            font-size: 30px;
+            padding: 0 50px;
+            color: white;
+            width: 40%;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px;
+        }
+
+        #navcontainer>nav>ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            display: flex;
+            position: absolute;
+            right: 50px;
+            /*   min-width:60%; */
+        }
+
+        #navcontainer>nav>ul>li {
+            line-height: 60px;
+            margin: 0 0px;
+            padding: 0;
+            text-align: center;
+            display: inline-block;
+
+            /*   background-color:green; */
+            min-width: 120px;
+
+        }
+
+        #navcontainer>nav>ul>li>a {
+            position: relative;
+            /*   background-color:red; */
+            margin: 0 20px;
+            color: white;
+        }
+
+        #navcontainer>nav>ul>li:hover {
+            border-bottom: 2px solid white;
+            background-color: #0088ff;
+        }
+
+        #navcontainer>nav>ul>.dropdown:hover {
+            border-bottom: none;
+        }
+
+        #navcontainer>nav>ul>.dropdown:hover>.dd {
+            display: block;
+        }
+
+        .dropdown:hover>a .fa-caret-down {
+            display: none;
+        }
+
+        a {
+            text-decoration: none;
+
+        }
+
+        #navcontainer>nav>ul>li>div {
+            position: absolute;
+            padding: 0 10px;
+
+            background-color: black;
+            display: none;
+            background-color: aliceblue;
+            min-width: 100px;
+        }
+
+        #navcontainer>nav>ul>li>div>ul {
+            margin: 0px 0 10px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #u_a_c {
+            position: relative;
+            width: 100%;
+            /*   background-color:red; */
+        }
+
+        #up_arrow {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            left: 42%;
+            top: -10px;
+            background-color: aliceblue;
+            transform: rotate(45deg);
+        }
+
+        #navcontainer>nav>ul>li>div>ul>li:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        #navcontainer>nav>ul>li>div>ul>li>a {
+            padding: 5px;
+            color: black;
+        }
+
+
+        .main-container {
+            padding: 30px;
+        }
+
+        /* HEADING */
+
+        .heading {
+            text-align: center;
+        }
+
+        .heading__title {
+            font-weight: 600;
+        }
+
+        .heading__credits {
+            margin: 10px 0px;
+            color: #888888;
+            font-size: 25px;
+            transition: all 0.5s;
+        }
+
+        .heading__link {
+            text-decoration: none;
+        }
+
+        .heading__credits .heading__link {
+            color: inherit;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .card {
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            min-height: 200px;
+            display: grid;
+            grid-template-rows: 20px 50px 1fr 50px;
+            border-radius: 10px;
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+            transform: scale(1.01);
+        }
+
+        .card__link,
+        .card__exit,
+        .card__icon {
+            position: relative;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card__link::after {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            content: "";
+            width: 0%;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.6);
+            transition: all 0.5s;
+        }
+
+        .card__link:hover::after {
+            width: 100%;
+        }
+
+        .card__exit {
+            grid-row: 1/2;
+            justify-self: end;
+        }
+
+        .card__icon {
+            grid-row: 2/3;
+            font-size: 30px;
+        }
+
+        .card__title {
+            grid-row: 3/4;
+            font-weight: 400;
+            color: #ffffff;
+        }
+
+        .card__apply {
+            grid-row: 4/5;
+            align-self: center;
+        }
+
+        /* CARD BACKGROUNDS */
+
+        .card-1 {
+            background: radial-gradient(#1fe4f5, #3fbafe);
+        }
+
+        .card-2 {
+            background: radial-gradient(#fbc1cc, #fa99b2);
+        }
+
+        .card-3 {
+            background: radial-gradient(#76b2fe, #b69efe);
+        }
+
+        .card-4 {
+            background: radial-gradient(#60efbc, #58d5c9);
+        }
+
+        .card-5 {
+            background: radial-gradient(#f588d8, #c0a3e5);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1600px) {
+            .cards {
+                justify-content: center;
+            }
+        }
+    </style>
+
+    
+</head>
+
+<body>
+    <div id="navcontainer">
+
+        <nav>
+          <div id="logo">
+            File Converter
+          </div>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li class="dropdown"  onmouseover="hover(this);" onmouseout="out(this);"><a href="#">Gallery &nbsp;<span style="margin-top: 50px;"><ion-icon   name="chevron-down-outline"></ion-icon> </span></a>
+              <div class="dd">
+                <div id="up_arrow"></div>
+              <ul>
+                
+                <li><a href="#">2019</a></li>
+                <li><a href="#">2018</a></li>
+                <li><a href="#">2017</a></li>
+              </ul>
+              </div>
+            </li>
+            <li><a href="#">Contact</a></li>
+            <li class="dropdown"><a href="#">Others &nbsp;<i class="fa fa-caret-down"></i> </a>
+             <div class="dd">
+               <div id="u_a_c"><div id="up_arrow"></div></div>
+              <ul>
+                
+                <li><a href="#">DOCS</a></li>
+                <li><a href="#">API</a></li>
+                <li><a href="#">PROJECTS</a></li>
+              </ul>
+              </div>
+  
+              </li>
+          </ul>
+        </nav>
+      </div>
+    <div class="main-container">
+        <div class="heading">
+            <h1 class="heading__title">File Converter</h1>
+            <p class="heading__credits">File convert into another files</p>
+        </div>
+        <div class="cards">
+
+            <div class="card card-1">
+                <div class="card__icon"><ion-icon name="download-outline"></ion-icon></div>
+                <p class="card__exit"><ion-icon name="search-circle-outline"></ion-icon></p>
+                <h2 class="card__title">Word to PDF</h2>
+
+                <p class="card__apply">
+                    <a class="card__link" href="/wordtopdf">Apply Now <i class="fas fa-arrow-right"></i></a>
+                </p>
+            </div>
+
+
+            <div class="card card-2">
+                <div class="card__icon"><ion-icon name="download-outline"></ion-icon></div>
+                <p class="card__exit"><ion-icon name="search-circle-outline"></ion-icon></p>
+                <h2 class="card__title">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
+                <p class="card__apply">
+                    <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+                </p>
+            </div>
+            <div class="card card-3">
+                <div class="card__icon"><ion-icon name="download-outline"></ion-icon></div>
+                <p class="card__exit"><ion-icon name="search-circle-outline"></ion-icon></p>
+                <h2 class="card__title">Ut enim ad minim veniam.</h2>
+                <p class="card__apply">
+                    <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+                </p>
+            </div>
+            <div class="card card-4">
+                <div class="card__icon"><ion-icon name="download-outline"></ion-icon></div>
+                <p class="card__exit"><ion-icon name="search-circle-outline"></ion-icon></p>
+                <h2 class="card__title">Quis nostrud exercitation ullamco laboris nisi.</h2>
+                <p class="card__apply">
+                    <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+                </p>
+            </div>
+            <div class="card card-5">
+                <div class="card__icon"><ion-icon name="download-outline"></ion-icon></div>
+                <p class="card__exit"><ion-icon name="search-circle-outline"></ion-icon></p>
+                <h2 class="card__title">Ut aliquip ex ea commodo consequat. Duis aute irure dolor.</h2>
+                <p class="card__apply">
+                    <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+                </p>
+            </div>
+            <div class="card card-1">
+                <div class="card__icon"><ion-icon name="download-outline"></ion-icon></div>
+                <p class="card__exit"><ion-icon name="search-circle-outline"></ion-icon></p>
+                <h2 class="card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                <p class="card__apply">
+                    <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
